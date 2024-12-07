@@ -1,8 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import javax.swing.*;
 
 public class RegisterEventFrame extends JFrame {
     private final JTextField nameField;
@@ -10,9 +10,9 @@ public class RegisterEventFrame extends JFrame {
     private final JTextField phoneField;
 
     // Database credentials
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/ems_db";
+    private final String jdbcURL = "jdbc:mysql://localhost:3306/Your database name";
     private final String dbUser = "root";
-    private final String dbPassword = "Prateek@497";
+    private final String dbPassword = "Your password";
 
     public RegisterEventFrame() {
         setTitle("Register for Event");
