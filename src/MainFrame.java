@@ -14,60 +14,60 @@ public class MainFrame extends JFrame {
     private DefaultTableModel tableModel;
     private JTable eventTable;
 
-    // JDBC connection variables
-    private String jdbcURL = "jdbc:mysql://localhost:3306/EMS_DB"; // Change to your DB URL
-    private String dbUser = "root"; // Change to your DB username
-    private String dbPassword = "1234"; // Change to your DB password
+    private String jdbcURL = "jdbc:mysql://localhost:3306/ems_db";
+    private String dbUser = "root";
+    private String dbPassword = "Prateek@497";
 
     public MainFrame() {
         setTitle("Event Management System");
-        setSize(600, 400);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);  // Center the window
-
-        // Use BorderLayout for the frame
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
+        getContentPane().setBackground(new Color(255, 223, 186));
 
-        // Create a title label
         JLabel titleLabel = new JLabel("Event Management System", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setBorder(new EmptyBorder(10, 10, 10, 10));  // Padding
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        titleLabel.setBorder(new EmptyBorder(20, 10, 20, 10));
+        titleLabel.setForeground(new Color(0, 102, 204));
         add(titleLabel, BorderLayout.NORTH);
 
-        // Main Panel with Border Layout
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout(10, 10));
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));  // Padding
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Button Panel (Add and Remove Buttons)
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 2, 10, 0));  // 1 row, 2 columns, 10px gap
+        buttonPanel.setLayout(new GridLayout(1, 2, 20, 0));
+        buttonPanel.setBackground(new Color(255, 153, 204));
         JButton addButton = new JButton("Add Event");
         JButton removeButton = new JButton("Remove Event");
+
+        addButton.setBackground(new Color(102, 204, 255));
+        addButton.setFont(new Font("Arial", Font.BOLD, 18));
+        removeButton.setBackground(new Color(255, 102, 102));
+        removeButton.setFont(new Font("Arial", Font.BOLD, 18));
 
         buttonPanel.add(addButton);
         buttonPanel.add(removeButton);
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Event Table with 3 columns: Name, Venue, Date
         String[] columnNames = {"Name", "Venue", "Date"};
-        tableModel = new DefaultTableModel(columnNames, 0);  // 0 means no initial rows
+        tableModel = new DefaultTableModel(columnNames, 0);
         eventTable = new JTable(tableModel);
-        eventTable.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        eventTable.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        eventTable.setRowHeight(30);
         JScrollPane scrollPane = new JScrollPane(eventTable);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Event List"));
 
         panel.add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.CENTER);
 
-        // Add Event Button Action Listener
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addEvent();
             }
         });
 
-        // Remove Event Button Action Listener
         removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 removeEvent();
@@ -80,8 +80,8 @@ public class MainFrame extends JFrame {
         JTextField eventVenueField = new JTextField();
         JTextField eventDateField = new JTextField();
 
-        // Form panel to get event details
         JPanel eventForm = new JPanel(new GridLayout(3, 2, 10, 10));
+        eventForm.setBackground(new Color(255, 255, 204));
         eventForm.add(new JLabel("Event Name:"));
         eventForm.add(eventNameField);
         eventForm.add(new JLabel("Venue:"));
@@ -102,11 +102,7 @@ public class MainFrame extends JFrame {
                 newEvent.setDate(eventDate);
 
                 events.add(newEvent);
-                
-                // Add the event details to the table
                 tableModel.addRow(new Object[]{eventName, eventVenue, eventDate});
-
-                // Save the event to the database
                 saveEventToDatabase(eventName, eventVenue, eventDate);
             } else {
                 JOptionPane.showMessageDialog(this, "Event name cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -115,7 +111,6 @@ public class MainFrame extends JFrame {
     }
 
     private void saveEventToDatabase(String name, String venue, String date) {
-        // Validate database connection
         try (Connection connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword)) {
             String sql = "INSERT INTO events (name, venue, date) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -132,9 +127,8 @@ public class MainFrame extends JFrame {
     private void removeEvent() {
         int selectedRow = eventTable.getSelectedRow();
         if (selectedRow != -1) {
-            // Remove the event from the array and table
             Event eventToRemove = events.get(selectedRow);
-            removeEventFromDatabase(eventToRemove.getName()); // Remove from DB
+            removeEventFromDatabase(eventToRemove.getName());
             events.remove(selectedRow);
             tableModel.removeRow(selectedRow);
         } else {
