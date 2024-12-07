@@ -14,9 +14,9 @@ public class MainFrame extends JFrame {
     private DefaultTableModel tableModel;
     private JTable eventTable;
 
-    private String jdbcURL = "jdbc:mysql://localhost:3306/ems_db";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/Your database name";
     private String dbUser = "root";
-    private String dbPassword = "Prateek@497";
+    private String dbPassword = "Your Password";
 
     public MainFrame() {
         setTitle("Event Management System");

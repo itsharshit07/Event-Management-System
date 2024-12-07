@@ -1,19 +1,19 @@
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ParticipantFrame extends JFrame {
     private final DefaultTableModel tableModel;
     private final JTable eventTable;
 
     // Database credentials
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/ems_db";
+    private final String jdbcURL = "jdbc:mysql://localhost:3306/Your database name";
     private final String dbUser = "root";
-    private final String dbPassword = "Prateek@497";
+    private final String dbPassword = "Your password";
 
     public ParticipantFrame() {
         setTitle("Participant - View Events");
