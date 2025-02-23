@@ -1,1 +1,2 @@
-Simple Event Management System Using Swing 
+Simple Event Management System Using Java Swing  
+MINI PROJECT
