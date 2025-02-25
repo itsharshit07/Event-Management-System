@@ -1,2 +1,2 @@
 Simple Event Management System Using Java Swing  
-MINI PROJECT
+MINI PROJECT for College students.
